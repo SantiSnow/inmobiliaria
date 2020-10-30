@@ -170,17 +170,48 @@ public class TestSistema {
 	@Test
 	public void recuperarDatosDePropietarios() {
 		//creamos un session factory
-		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
 			.buildSessionFactory();
 												
 		Session mySession = myFactory.openSession();
 		
-				
+		Propietario miPropietario = SelectPropietarios.consultarPorId(mySession, 1);
+		
+		Assert.assertEquals("Santiago", miPropietario.getNombre());
+		Assert.assertEquals("Aguirresantiago@gmail.com", miPropietario.getCorreo());
+		Assert.assertEquals("Sequeira 3179", miPropietario.getDireccion());
+		Assert.assertEquals(11223344, miPropietario.getTelefono(), 0);
 				
 		mySession.close();
 				
 		myFactory.close();
 	}
+	
+	@Test
+	public void recuperarTodosLosPropietarios() {
+		//creamos un session factory
+		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+												
+		Session mySession = myFactory.openSession();
+		
+		List<Propietario> listaPropietarios = SelectPropietarios.selectPropietarios(mySession);
+		
+		for(Propietario i: listaPropietarios) {
+			System.out.println(" ");
+			System.out.println("Lista de propietarios: ");
+			System.out.println(i.getNombre());
+			System.out.println(i.getDireccion());
+			System.out.println(i.getCorreo());
+		}
+		
+		mySession.close();
+		
+		myFactory.close();
+	}
+	
 }

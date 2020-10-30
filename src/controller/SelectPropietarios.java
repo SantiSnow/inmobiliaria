@@ -8,7 +8,7 @@ import model.*;
 
 public class SelectPropietarios {
 	
-	public static List<Propietario> selectInmuebles(Session mySession) {
+	public static List<Propietario> selectPropietarios(Session mySession) {
 		mySession.beginTransaction();
 		List<Propietario> listaPropietarios = mySession.createQuery("from Propietario").getResultList();
 		mySession.getTransaction().commit();
