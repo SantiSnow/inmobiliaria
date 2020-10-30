@@ -36,7 +36,7 @@ public class Inmueble {
 	private String Comentarios;
 	
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE} )
-	@JoinColumn(name = "CLIENTE_Id")
+	@JoinColumn(name = "Propietario_Id")
 	private Propietario propietario;
 	
 	//constructores

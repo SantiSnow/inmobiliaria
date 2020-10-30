@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -37,7 +38,7 @@ public class Propietario {
 	@Column(name="Comentarios")
 	private String Comentarios;
 	
-	@OneToMany(mappedBy = "cliente", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE} )
+	@OneToMany(mappedBy = "propietario", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE} )
 	private List<Inmueble> listaInmuebles;
 	
 	//constructores
@@ -98,6 +99,20 @@ public class Propietario {
 	@Override
 	public String toString() {
 		return "\nPropietario: Id=" + Id + ", Nombre=" + Nombre + ", Telefono=" + Telefono + ", Correo=" + Correo	+ ", Direccion=" + Direccion + ", Comentarios=" + Comentarios + ", listaInmuebles=" + listaInmuebles + ".";
+	}
+	
+	//metodos
+	public Boolean agregarInmueble(Inmueble inmueble) {
+		if(listaInmuebles == null) {
+			listaInmuebles = new ArrayList<Inmueble>();
+			listaInmuebles.add(inmueble);
+			inmueble.setPropietario(this);
+		}
+		else {
+			listaInmuebles.add(inmueble);
+			inmueble.setPropietario(this);
+		}
+		return true;
 	}
 	
 }
