@@ -214,7 +214,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void testDeActualizaciondeInmuebles() {
 		//creamos un session factory
 		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -232,5 +232,22 @@ public class TestSistema {
 		
 		myFactory.close();
 	}
-	
+	@Test
+	public void testDeActualizaciondePropietarios() {
+		//creamos un session factory
+		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+												
+		Session mySession = myFactory.openSession();
+		
+		Propietario propietarioActualizado = Update.actualizarPropietario(mySession, 1);
+		
+		Assert.assertEquals("Santiago Aguirre", propietarioActualizado.getNombre());
+		
+		mySession.close();
+		
+		myFactory.close();
+	}
 }
