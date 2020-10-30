@@ -12,19 +12,15 @@ public class Select {
 
 	public static List<Inmueble> selectInmuebles(Session mySession) {
 		mySession.beginTransaction();
-		
 		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble").getResultList();
-		
 		return listaInmuebles;
 	}
 	
 	
-	public static Inmueble selectInmueblePorNombre(Session mySession) {
+	public static List<Inmueble> selectInmueblePorDireccion(Session mySession, String direccion) {
 		mySession.beginTransaction();
-		
-		mySession.beginTransaction();
-		
-		return null;
+		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble where Direccion='" + direccion + "'").getResultList();
+		return listaInmuebles;
 	}
 	
 	public static Inmueble selectInmueblePorId(Session mySession, Integer idInmueble) {

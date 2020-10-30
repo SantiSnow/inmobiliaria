@@ -69,6 +69,10 @@ public class TestSistema {
 		Inmueble nuevoInmueble = Insertar.insertarInmueble(mySession, 50000000.00, "Calle del Sol 918", "Tres de Febrero", 4, "Departamento amplio", 1);
 		
 		Assert.assertEquals("Calle del Sol 918", nuevoInmueble.getDireccion());
+		
+		mySession.close();
+		
+		myFactory.close();
 	}
 
 	@Ignore
@@ -84,6 +88,10 @@ public class TestSistema {
 		Propietario nuevoPropietario = Insertar.insertarPropietario(mySession, "Santiago", 11223344, "Aguirresantiago@gmail.com", "Sequeira 3179", "Potencial Cliente");
 		
 		Assert.assertEquals("Santiago", nuevoPropietario.getNombre());
+		
+		mySession.close();
+		
+		myFactory.close();
 	}
 	
 	@Test
@@ -104,6 +112,10 @@ public class TestSistema {
 		
 		Assert.assertEquals("Santiago", miInmueble.getPropietario().getNombre());
 		Assert.assertEquals("Aguirresantiago@gmail.com", miInmueble.getPropietario().getCorreo());
+		
+		mySession.close();
+		
+		myFactory.close();
 	}
 	
 	@Test
@@ -124,6 +136,35 @@ public class TestSistema {
 			System.out.println(i.getId());
 		}
 		
+		mySession.close();
+		
+		myFactory.close();
+	}
+	
+	@Test
+	public void consultarLosInmueblesPorDireccion() {
+		//creamos un session factory
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+										
+		Session mySession = myFactory.openSession();
+		
+		List<Inmueble> listaInmuebles = Select.selectInmueblePorDireccion(mySession, "Calle del Sol 918");
+		
+		for(Inmueble i: listaInmuebles) {
+			System.out.println(" ");
+			System.out.println(" ");
+			System.out.println("Lista de inmuebles con la direccion elegida: ");
+			System.out.println(i.getDireccion());
+			System.out.println(i.getComentarios());
+			System.out.println(i.getId());
+		}
+		
+		mySession.close();
+		
+		myFactory.close();
 	}
 	
 	@Test
