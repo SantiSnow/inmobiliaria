@@ -169,6 +169,18 @@ public class TestSistema {
 	
 	@Test
 	public void recuperarDatosDePropietarios() {
+		//creamos un session factory
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+												
+		Session mySession = myFactory.openSession();
 		
+				
+				
+		mySession.close();
+				
+		myFactory.close();
 	}
 }

@@ -13,6 +13,7 @@ public class Select {
 	public static List<Inmueble> selectInmuebles(Session mySession) {
 		mySession.beginTransaction();
 		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble").getResultList();
+		mySession.getTransaction().commit();
 		return listaInmuebles;
 	}
 	
@@ -20,6 +21,7 @@ public class Select {
 	public static List<Inmueble> selectInmueblePorDireccion(Session mySession, String direccion) {
 		mySession.beginTransaction();
 		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble where Direccion='" + direccion + "'").getResultList();
+		mySession.getTransaction().commit();
 		return listaInmuebles;
 	}
 	
