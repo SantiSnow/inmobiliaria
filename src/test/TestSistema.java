@@ -214,4 +214,23 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
+	@Test
+	public void testDeActualizaciondeInmuebles() {
+		//creamos un session factory
+		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+												
+		Session mySession = myFactory.openSession();
+		
+		Inmueble inmuebleActualizado = Update.actualizar(mySession, 1);
+		
+		Assert.assertEquals("9 de Julio 514", inmuebleActualizado.getDireccion());
+		
+		mySession.close();
+		
+		myFactory.close();
+	}
+	
 }
