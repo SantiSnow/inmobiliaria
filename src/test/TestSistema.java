@@ -106,7 +106,7 @@ public class TestSistema {
 		
 		Inmueble miInmueble = Select.selectInmueblePorId(mySession, 1);
 		
-		Assert.assertEquals("Calle del Sol 918", miInmueble.getDireccion());
+		Assert.assertEquals("9 de Julio 514", miInmueble.getDireccion());
 		Assert.assertEquals("Departamento amplio", miInmueble.getComentarios());
 		Assert.assertEquals(1, miInmueble.getId(), 0);
 		
@@ -179,7 +179,7 @@ public class TestSistema {
 		
 		Propietario miPropietario = SelectPropietarios.consultarPorId(mySession, 1);
 		
-		Assert.assertEquals("Santiago", miPropietario.getNombre());
+		Assert.assertEquals("Santiago Aguirre", miPropietario.getNombre());
 		Assert.assertEquals("Aguirresantiago@gmail.com", miPropietario.getCorreo());
 		Assert.assertEquals("Sequeira 3179", miPropietario.getDireccion());
 		Assert.assertEquals(11223344, miPropietario.getTelefono(), 0);
@@ -232,6 +232,7 @@ public class TestSistema {
 		
 		myFactory.close();
 	}
+	
 	@Test
 	public void testDeActualizaciondePropietarios() {
 		//creamos un session factory
@@ -249,5 +250,10 @@ public class TestSistema {
 		mySession.close();
 		
 		myFactory.close();
+	}
+	
+	@Test
+	public void testBorradoDePropietarios() {
+		
 	}
 }
