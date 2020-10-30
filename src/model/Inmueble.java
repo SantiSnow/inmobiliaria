@@ -52,7 +52,7 @@ public class Inmueble {
 		this.propietario = propietario;
 	}
 
-	//getters y setters
+	//getters, setters y tostring
 	public Integer getId() {
 		return Id;
 	}
@@ -94,5 +94,9 @@ public class Inmueble {
 	}
 	public void setPropietario(Propietario propietario) {
 		this.propietario = propietario;
+	}
+	@Override
+	public String toString() {
+		return "\nInmueble: Id=" + Id + ", Precio=" + Precio + ", Direccion=" + Direccion + ", Partido=" + Partido + ", Ambientes=" + Ambientes + ", Comentarios=" + Comentarios + ", propietario=" + propietario + ".";
 	}
 }
