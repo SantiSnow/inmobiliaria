@@ -27,4 +27,24 @@ public class Insertar {
 		
 		return miInmueble;
 	}
+	
+	public static Broker insertarBroker(Session mySession, String nombre, Integer ventas, String correo) {
+		Broker myBroker = new Broker(nombre, ventas, correo);
+		mySession.beginTransaction();
+		mySession.save(myBroker);
+		
+		mySession.getTransaction().commit();
+		
+		return myBroker;
+	}
+	
+	public static Cliente insertarCliente(Session mySession, String nombre, Integer telefono, String correo, String direccion, String comentarios) {
+		Cliente miCliente = new Cliente(nombre, telefono, correo, direccion, comentarios);
+		mySession.beginTransaction();
+		mySession.save(miCliente);
+		
+		mySession.getTransaction().commit();
+		
+		return miCliente;
+	}
 }

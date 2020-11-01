@@ -45,6 +45,8 @@ public class TestSistema {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
 			.buildSessionFactory();
 				
 		Session mySession = myFactory.openSession();
@@ -62,6 +64,8 @@ public class TestSistema {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
 			.buildSessionFactory();
 						
 		Session mySession = myFactory.openSession();
@@ -81,6 +85,8 @@ public class TestSistema {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
 			.buildSessionFactory();
 								
 		Session mySession = myFactory.openSession();
@@ -100,6 +106,8 @@ public class TestSistema {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
 			.buildSessionFactory();
 										
 		Session mySession = myFactory.openSession();
@@ -110,7 +118,7 @@ public class TestSistema {
 		Assert.assertEquals("Departamento amplio", miInmueble.getComentarios());
 		Assert.assertEquals(1, miInmueble.getId(), 0);
 		
-		Assert.assertEquals("Santiago", miInmueble.getPropietario().getNombre());
+		Assert.assertEquals("Santiago Aguirre", miInmueble.getPropietario().getNombre());
 		Assert.assertEquals("Aguirresantiago@gmail.com", miInmueble.getPropietario().getCorreo());
 		
 		mySession.close();
@@ -124,6 +132,8 @@ public class TestSistema {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
 			.buildSessionFactory();
 										
 		Session mySession = myFactory.openSession();
@@ -147,6 +157,8 @@ public class TestSistema {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
 			.buildSessionFactory();
 										
 		Session mySession = myFactory.openSession();
@@ -173,6 +185,8 @@ public class TestSistema {
 		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
 			.buildSessionFactory();
 												
 		Session mySession = myFactory.openSession();
@@ -195,6 +209,8 @@ public class TestSistema {
 		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
 			.buildSessionFactory();
 												
 		Session mySession = myFactory.openSession();
@@ -220,6 +236,8 @@ public class TestSistema {
 		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
 			.buildSessionFactory();
 												
 		Session mySession = myFactory.openSession();
@@ -233,12 +251,14 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void testDeActualizaciondePropietarios() {
 		//creamos un session factory
 		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
 			.buildSessionFactory();
 												
 		Session mySession = myFactory.openSession();
@@ -256,4 +276,83 @@ public class TestSistema {
 	public void testBorradoDePropietarios() {
 		
 	}
+	
+	@Test
+	public void insertarBrokers() {
+		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.buildSessionFactory();
+												
+		Session mySession = myFactory.openSession();
+		
+		Broker myBroker = Insertar.insertarBroker(mySession, "Carlos Fernandez", 15, "FerndzInmobiliaria@gmail.com");
+		
+		Assert.assertEquals("Carlos Fernandez", myBroker.getNombre());
+		
+		mySession.close();
+		
+		myFactory.close();
+	}
+	
+	@Test
+	public void insertarClientes() {
+		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.buildSessionFactory();
+												
+		Session mySession = myFactory.openSession();
+		
+		Cliente miCliente = Insertar.insertarCliente(mySession, "Santiago Perez", 11223344, "Sperez_1@gmail.com", "Diag. Norte 918", "Potencial cliente");
+		
+		Assert.assertEquals("Santiago Perez", miCliente.getNombre());
+		
+		mySession.close();
+		
+		myFactory.close();
+	}
+	
+	@Test
+	public void testSelectDeBrokers() {
+		//creamos un session factory
+		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.buildSessionFactory();
+												
+		Session mySession = myFactory.openSession();
+		
+		List<Broker> listaObtenida = SelectGeneral.verTodosLosCorredores(mySession);
+		
+		mySession.close();
+		
+		myFactory.close();
+	}
+	
+	@Test
+	public void testSelectDeClientes() {
+		//creamos un session factory
+		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+												
+		Session mySession = myFactory.openSession();
+		
+		List<Cliente> listaObtenida = SelectGeneral.verTodosLosClientes(mySession);
+		
+		mySession.close();
+		
+		myFactory.close();
+	}
+	
 }
