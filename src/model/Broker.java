@@ -63,6 +63,6 @@ public class Broker {
 	}
 	@Override
 	public String toString() {
-		return "Broker: Id=" + Id + ", Nombre=" + Nombre + ", Ventas=" + Ventas + ", Correo=" + Correo + ".";
+		return "\nBroker: Id=" + Id + ", Nombre=" + Nombre + ", Ventas=" + Ventas + ", Correo=" + Correo + ".";
 	}
 }
