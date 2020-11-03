@@ -10,7 +10,7 @@ public class SelectPropietarios {
 	
 	public static List<Propietario> selectPropietarios(Session mySession) {
 		mySession.beginTransaction();
-		List<Propietario> listaPropietarios = mySession.createQuery("from Propietario").getResultList();
+		List<Propietario> listaPropietarios = mySession.createQuery("from Propietario", Propietario.class).getResultList();
 		mySession.getTransaction().commit();
 		return listaPropietarios;
 	}

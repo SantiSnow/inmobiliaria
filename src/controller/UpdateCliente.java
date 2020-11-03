@@ -21,7 +21,7 @@ public class UpdateCliente {
 												+ "\nComentarios: " + miCliente.getComentarios());
 			
 			int opcion = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese 1 para actualizar nombre "
-																			+ "\n2 para cambiar el direccion "
+																			+ "\n2 para cambiar la direccion "
 																			+ "\n3 para cambiar el correo "
 																			+ "\n4 para actualizar el telefono "
 																			+ "\nO 5 para cambiar los comentarios:"));

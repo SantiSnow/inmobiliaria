@@ -12,7 +12,7 @@ public class Select {
 
 	public static List<Inmueble> selectInmuebles(Session mySession) {
 		mySession.beginTransaction();
-		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble").getResultList();
+		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble", Inmueble.class).getResultList();
 		mySession.getTransaction().commit();
 		return listaInmuebles;
 	}
@@ -20,7 +20,7 @@ public class Select {
 	
 	public static List<Inmueble> selectInmueblePorDireccion(Session mySession, String direccion) {
 		mySession.beginTransaction();
-		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble where Direccion='" + direccion + "'").getResultList();
+		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble where Direccion='" + direccion + "'", Inmueble.class).getResultList();
 		mySession.getTransaction().commit();
 		return listaInmuebles;
 	}
@@ -37,5 +37,19 @@ public class Select {
 			JOptionPane.showMessageDialog(null, "No se encontro un inmueble con ese Id");
 			return null;
 		}		
+	}
+	
+	public static List<Inmueble> listaInmieblesOrdPorDireccion(Session mySession){
+		mySession.beginTransaction();
+		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble in order by in.Direccion", Inmueble.class).getResultList();
+		mySession.getTransaction().commit();
+		return listaInmuebles;
+	}
+	
+	public static List<Inmueble> listaInmieblesOrdPorPartido(Session mySession){
+		mySession.beginTransaction();
+		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble in order by in.Partido", Inmueble.class).getResultList();
+		mySession.getTransaction().commit();
+		return listaInmuebles;
 	}
 }

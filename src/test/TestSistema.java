@@ -19,7 +19,7 @@ public class TestSistema {
 	 * Todos los metodos con @Ignore funcionan, fueron omitidos para evitar que los valores duplicados se inserten una y otra vez durante la fase de testeo
 	 */
 	
-	@Test
+	@Ignore
 	public void testeoDeLaConexionNativa() {
 		//datos conexion mysql
 		String host = "jdbc:mysql://localhost:3306/hibernate?serverTimezone=UTC&useSSL=false";
@@ -43,7 +43,7 @@ public class TestSistema {
 		}
 	}
 	
-	@Test
+	@Ignore
 	public void testeoDeConexionHibernate() {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -130,7 +130,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Ignore
+	@Test
 	public void recuperarTodosLosInmuebles() {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -522,12 +522,12 @@ public class TestSistema {
 																
 		Session mySession = myFactory.openSession();
 		
-		Cliente miCliente = UpdateCliente.actualizarCliente(mySession, 4);
+		Cliente miCliente = UpdateCliente.actualizarCliente(mySession, 6);
 		
-		Assert.assertEquals("Marcos Garcia", miCliente.getNombre());
+		Assert.assertEquals("Brandsen 3551", miCliente.getDireccion());
 	}
 	
-	@Test
+	@Ignore
 	public void testActualizacionBroker() {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Broker.class)
@@ -538,10 +538,28 @@ public class TestSistema {
 																	
 		Session mySession = myFactory.openSession();
 			
-		Broker miBroker = UpdateBroker.actualizarBroker(mySession, 7);
+		Broker miBroker = UpdateBroker.actualizarBroker(mySession, 8);
 			
-		Assert.assertEquals("Marcelo Alejandro", miBroker.getNombre());
+		Assert.assertEquals("Juan Miguel", miBroker.getNombre());
 		
 	}
 	
+	@Ignore
+	public void testListaOrdenadaDeInmuebles() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+																		
+		Session mySession = myFactory.openSession();
+		
+		List<Inmueble> listaOrdenadaPorPartido = Select.listaInmieblesOrdPorPartido(mySession);
+		
+		for(Inmueble i: listaOrdenadaPorPartido) {
+			System.out.println("Propiedad ubicada en: " + i.getPartido());
+		}
+	}
+
 }
