@@ -24,7 +24,7 @@ public class Delete {
 			
 			if(eleccion == 0) {
 				mySession.delete(miInmueble);
-				JOptionPane.showMessageDialog(null, "Cliente y datos borrados.");
+				JOptionPane.showMessageDialog(null, "Inmueble y datos borrados.");
 				mySession.getTransaction().commit();
 			}
 			else {
