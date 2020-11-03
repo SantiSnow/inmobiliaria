@@ -40,6 +40,21 @@ public class Delete {
 		return miInmueble;
 	}
 	
+	public static Propietario borrarPropietario(Session mySession) {
+		
+		return null;
+	}
+	
+	public static Broker borrarBroker(Session mySession) {
+		
+		return null;
+	}
+	
+	public static Cliente Cliente(Session mySession) {
+		
+		return null;
+	}
+	
 	
 
 }

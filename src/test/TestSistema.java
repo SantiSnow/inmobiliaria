@@ -329,7 +329,14 @@ public class TestSistema {
 												
 		Session mySession = myFactory.openSession();
 		
-		List<Broker> listaObtenida = SelectGeneral.verTodosLosCorredores(mySession);
+		List<Broker> listaBrokers = SelectGeneral.verTodosLosCorredores(mySession);
+		
+		System.out.println("Lista de brokers: ");
+		
+		for(Broker i: listaBrokers) {
+			System.out.println("\nNombre del Broker: " + i.getNombre());
+			System.out.println("Cantidad de ventas: " + i.getVentas());
+		}
 		
 		mySession.close();
 		
@@ -349,6 +356,12 @@ public class TestSistema {
 		Session mySession = myFactory.openSession();
 		
 		List<Cliente> listaObtenida = SelectGeneral.verTodosLosClientes(mySession);
+		
+		System.out.println("Lista de clientes: ");
+		for(Cliente i: listaObtenida) {
+			System.out.println("\nNombre del cliente: " + i.getNombre());
+			System.out.println("\nCorreo del cliente" + i.getCorreo());
+		}
 		
 		mySession.close();
 		

@@ -15,7 +15,7 @@ public class SelectGeneral {
 	
 	public static List<Broker> verTodosLosCorredores(Session mySession){
 		mySession.beginTransaction();
-		List<Broker> misBrokers = mySession.createQuery("from Cliente").getResultList();
+		List<Broker> misBrokers = mySession.createQuery("from Broker").getResultList();
 		mySession.getTransaction().commit();
 		return misBrokers;
 	}
