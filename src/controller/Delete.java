@@ -73,8 +73,31 @@ public class Delete {
 	
 	public static Broker borrarBroker(Session mySession, Integer idBroker) {
 		mySession.beginTransaction();
+		Broker miBroker = mySession.get(Broker.class, idBroker);
 		
-		return null;
+		if(miBroker != null) {
+			JOptionPane.showMessageDialog(null, "Datos del broker encontrado: " 
+												+ "\nNombre: " + miBroker.getNombre()
+												+ "\nVentas: " + miBroker.getVentas()
+												+ "\nCorreo: " + miBroker.getCorreo()
+												+ "\nID: " + miBroker.getId());
+			Integer eleccion = JOptionPane.showConfirmDialog(null, "¿Desea realmente borrar estos registros?", "Borrar broker", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			
+			if(eleccion == 0) {
+				mySession.delete(miBroker);
+				mySession.getTransaction().commit();
+				JOptionPane.showMessageDialog(null, "El broker fue eliminado.");
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "No se borro el registro.");
+				mySession.getTransaction().commit();
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "No se encontró un broker con ese ID.");
+			mySession.getTransaction().commit();
+		}
+		return miBroker;
 	}
 	
 	public static Cliente Cliente(Session mySession, Integer idCliente) {
