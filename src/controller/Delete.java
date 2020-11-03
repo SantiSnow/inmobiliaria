@@ -100,7 +100,7 @@ public class Delete {
 		return miBroker;
 	}
 	
-	public static Cliente Cliente(Session mySession, Integer idCliente) {
+	public static Cliente borrarCliente(Session mySession, Integer idCliente) {
 		mySession.beginTransaction();
 		Cliente miCliente = mySession.get(Cliente.class, idCliente);
 		

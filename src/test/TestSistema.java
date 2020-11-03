@@ -15,6 +15,10 @@ import controller.*;
 
 public class TestSistema {
 	
+	/*
+	 * Todos los metodos con @Ignore funcionan, fueron omitidos para evitar que los valores duplicados se inserten una y otra vez durante la fase de testeo
+	 */
+	
 	@Test
 	public void testeoDeLaConexionNativa() {
 		//datos conexion mysql
@@ -100,7 +104,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void recuperarDatosDeInmuebles() {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -126,7 +130,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void recuperarTodosLosInmuebles() {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -151,7 +155,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void consultarLosInmueblesPorDireccion() {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -179,7 +183,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void recuperarDatosDePropietarios() {
 		//creamos un session factory
 		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -203,7 +207,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void recuperarTodosLosPropietarios() {
 		//creamos un session factory
 		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -272,12 +276,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
-	public void testBorradoDePropietarios() {
-		
-	}
-	
-	@Test
+	@Ignore
 	public void insertarBrokers() {
 		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
@@ -297,7 +296,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void insertarClientes() {
 		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
@@ -317,7 +316,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void testSelectDeBrokers() {
 		//creamos un session factory
 		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -343,10 +342,10 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void testSelectDeClientes() {
 		//creamos un session factory
-		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Broker.class)
 			.addAnnotatedClass(Cliente.class)
 			.addAnnotatedClass(Propietario.class)
@@ -367,5 +366,57 @@ public class TestSistema {
 		
 		myFactory.close();
 	}
+	
+	
+	
+	@Test
+	public void borradoInmuebles() {
+
+	}
+	
+	@Test
+	public void borradoPropietarios() {
+		
+	}
+	
+	@Test
+	public void borradoBrokers() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+														
+		Session mySession = myFactory.openSession();
+		
+		Broker miBroker = Delete.borrarBroker(mySession, 5);
+		
+		Assert.assertEquals(5, miBroker.getId(), 0);
+		Assert.assertEquals("Carlos Fernandez", miBroker.getNombre());
+		Assert.assertEquals("FerndzInmobiliaria@gmail.com", miBroker.getCorreo());
+		
+		//Assert.assertFalse(miBroker != null);
+	}
+	
+	@Test
+	public void borradoClientes() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+														
+		Session mySession = myFactory.openSession();
+		
+		Cliente miCliente = Delete.borrarCliente(mySession, 2);
+		
+		Assert.assertEquals(2, miCliente.getId(), 0);
+		Assert.assertEquals("Santiago Perez", miCliente.getNombre());
+		Assert.assertEquals("Sperez_1@gmail.com", miCliente.getCorreo());
+		
+	}
+	
 	
 }
