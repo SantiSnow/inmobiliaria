@@ -511,5 +511,37 @@ public class TestSistema {
 		Assert.assertTrue(miCliente == null);
 	}
 	
+	@Ignore
+	public void testActualizacionCliente() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+																
+		Session mySession = myFactory.openSession();
+		
+		Cliente miCliente = UpdateCliente.actualizarCliente(mySession, 4);
+		
+		Assert.assertEquals("Marcos Garcia", miCliente.getNombre());
+	}
+	
+	@Test
+	public void testActualizacionBroker() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+																	
+		Session mySession = myFactory.openSession();
+			
+		Broker miBroker = UpdateBroker.actualizarBroker(mySession, 7);
+			
+		Assert.assertEquals("Marcelo Alejandro", miBroker.getNombre());
+		
+	}
 	
 }

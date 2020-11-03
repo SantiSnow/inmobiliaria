@@ -45,7 +45,6 @@ public class UpdateBroker {
 		else {
 			JOptionPane.showMessageDialog(null, "No se encontro un broker con ese ID");
 		}
-		
 		return miBroker;
 	}
 }

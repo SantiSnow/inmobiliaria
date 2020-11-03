@@ -58,9 +58,6 @@ public class UpdateCliente {
 		else {
 			JOptionPane.showMessageDialog(null, "No se encontro un cliente con ese ID");
 		}
-		
-		
 		return miCliente;
 	}
-
 }
