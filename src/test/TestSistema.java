@@ -385,6 +385,22 @@ public class TestSistema {
 	}
 	
 	@Ignore
+	public void pruebaDeNoBorradoPorInmuebleNoEncontrado() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+																
+		Session mySession = myFactory.openSession();
+		
+		Inmueble miInmuebleNulo = Delete.borrarInmueble(mySession, 45);
+		
+		Assert.assertTrue(miInmuebleNulo == null);
+	}
+	
+	@Ignore
 	public void borradoPropietarios() {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Broker.class)
@@ -409,6 +425,22 @@ public class TestSistema {
 			System.out.println(i.getDireccion());
 			System.out.println(i.getPartido());
 		}
+	}
+	
+	@Ignore
+	public void pruebaDeNoBorradoPorPropietarioNoEncontrado() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+																	
+		Session mySession = myFactory.openSession();
+		
+		Propietario miPropietarioNoHallado = Delete.borrarPropietario(mySession, 65);
+		
+		Assert.assertFalse(miPropietarioNoHallado != null);
 	}
 	
 	@Ignore
