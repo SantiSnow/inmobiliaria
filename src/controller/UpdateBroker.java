@@ -39,6 +39,8 @@ public class UpdateBroker {
 				JOptionPane.showMessageDialog(null, "Opcion no válida.");
 				break;
 			}
+			mySession.getTransaction().commit();
+			JOptionPane.showMessageDialog(null, "Registro actualizado con éxito.");
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "No se encontro un broker con ese ID");
