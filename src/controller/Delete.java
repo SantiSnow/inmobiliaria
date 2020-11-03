@@ -40,17 +40,45 @@ public class Delete {
 		return miInmueble;
 	}
 	
-	public static Propietario borrarPropietario(Session mySession) {
+	public static Propietario borrarPropietario(Session mySession, Integer idPropietario) {
+		mySession.beginTransaction();
+		Propietario miPropietario = mySession.get(Propietario.class, idPropietario);
+		
+		if(miPropietario != null) {
+			JOptionPane.showMessageDialog(null, "Datos del propietario encontrado: " 
+												+ "\nNombre: " + miPropietario.getNombre()
+												+ "\nDireccion: " + miPropietario.getDireccion()
+												+ "\nCorreo: " + miPropietario.getCorreo()
+												+ "\nTelefono: " + miPropietario.getTelefono()
+												+ "\nComentarios: " + miPropietario.getComentarios());
+			Integer eleccion = JOptionPane.showConfirmDialog(null, "¿Desea realmente borrar estos registros?", "Borrar propietario", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			
+			if(eleccion == 0) {
+				mySession.delete(miPropietario);
+				JOptionPane.showMessageDialog(null, "Propietario borrado.");
+				mySession.getTransaction().commit();
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "El propietario no fue borrado.");
+				mySession.getTransaction().commit();
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "No se encontró un propietario con ese ID.");
+			mySession.getTransaction().commit();
+		}
+		
+		return miPropietario;
+	}
+	
+	public static Broker borrarBroker(Session mySession, Integer idBroker) {
+		mySession.beginTransaction();
 		
 		return null;
 	}
 	
-	public static Broker borrarBroker(Session mySession) {
-		
-		return null;
-	}
-	
-	public static Cliente Cliente(Session mySession) {
+	public static Cliente Cliente(Session mySession, Integer idCliente) {
+		mySession.beginTransaction();
 		
 		return null;
 	}
