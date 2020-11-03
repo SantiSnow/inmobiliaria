@@ -390,13 +390,27 @@ public class TestSistema {
 														
 		Session mySession = myFactory.openSession();
 		
-		Broker miBroker = Delete.borrarBroker(mySession, 5);
+		Broker miBroker = Delete.borrarBroker(mySession, 6);
 		
-		Assert.assertEquals(5, miBroker.getId(), 0);
+		Assert.assertEquals(6, miBroker.getId(), 0);
 		Assert.assertEquals("Carlos Fernandez", miBroker.getNombre());
 		Assert.assertEquals("FerndzInmobiliaria@gmail.com", miBroker.getCorreo());
+	}
+	
+	@Test
+	public void borradoNoEncontradoDeBrokers() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+															
+		Session mySession = myFactory.openSession();
 		
-		//Assert.assertFalse(miBroker != null);
+		Broker miBroker = Delete.borrarBroker(mySession, 45);
+		
+		Assert.assertFalse(miBroker != null);
 	}
 	
 	@Test
@@ -410,12 +424,27 @@ public class TestSistema {
 														
 		Session mySession = myFactory.openSession();
 		
-		Cliente miCliente = Delete.borrarCliente(mySession, 2);
+		Cliente miCliente = Delete.borrarCliente(mySession, 3);
 		
-		Assert.assertEquals(2, miCliente.getId(), 0);
+		Assert.assertEquals(3, miCliente.getId(), 0);
 		Assert.assertEquals("Santiago Perez", miCliente.getNombre());
 		Assert.assertEquals("Sperez_1@gmail.com", miCliente.getCorreo());
+	}
+	
+	@Test
+	public void borradoNoEncontradoDeClientes() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.buildSessionFactory();
+															
+		Session mySession = myFactory.openSession();
+			
+		Cliente miCliente = Delete.borrarCliente(mySession, 45);
 		
+		Assert.assertTrue(miCliente == null);
 	}
 	
 	
