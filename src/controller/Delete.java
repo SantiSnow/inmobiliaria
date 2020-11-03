@@ -102,8 +102,33 @@ public class Delete {
 	
 	public static Cliente Cliente(Session mySession, Integer idCliente) {
 		mySession.beginTransaction();
+		Cliente miCliente = mySession.get(Cliente.class, idCliente);
 		
-		return null;
+		if(miCliente != null) {
+			JOptionPane.showMessageDialog(null, "Datos del propietario encontrado: " 
+												+ "\nNombre: " + miCliente.getNombre()
+												+ "\nDireccion: " + miCliente.getDireccion()
+												+ "\nCorreo: " + miCliente.getCorreo()
+												+ "\nTelefono: " + miCliente.getTelefono()
+												+ "\nComentarios: " + miCliente.getComentarios());
+			
+			Integer eleccion = JOptionPane.showConfirmDialog(null, "¿Desea realmente borrar estos registros?", "Borrar propietario", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			
+			if(eleccion == 0) {
+				mySession.delete(miCliente);
+				mySession.getTransaction().commit();
+				JOptionPane.showMessageDialog(null, "El cliente fue eliminado.");
+			}
+			else {
+				mySession.getTransaction().commit();
+				JOptionPane.showMessageDialog(null, "El cliente no fue eliminado.");
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "No se encontró un cliente con ese ID.");
+			mySession.getTransaction().commit();
+		}
+		return miCliente;
 	}
 	
 	
