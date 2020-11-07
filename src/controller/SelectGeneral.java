@@ -8,14 +8,14 @@ public class SelectGeneral {
 	
 	public static List<Cliente> verTodosLosClientes(Session mySession){
 		mySession.beginTransaction();
-		List<Cliente> misClientes = mySession.createQuery("from Cliente").getResultList();
+		List<Cliente> misClientes = mySession.createQuery("from Cliente", Cliente.class).getResultList();
 		mySession.getTransaction().commit();
 		return misClientes;
 	}
 	
 	public static List<Broker> verTodosLosCorredores(Session mySession){
 		mySession.beginTransaction();
-		List<Broker> misBrokers = mySession.createQuery("from Broker").getResultList();
+		List<Broker> misBrokers = mySession.createQuery("from Broker", Broker.class).getResultList();
 		mySession.getTransaction().commit();
 		return misBrokers;
 	}

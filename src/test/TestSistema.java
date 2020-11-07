@@ -2,6 +2,7 @@ package test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -16,7 +17,7 @@ import controller.*;
 public class TestSistema {
 	
 	/*
-	 * Todos los metodos con @Ignore funcionan, fueron omitidos para evitar que los valores duplicados se inserten una y otra vez durante la fase de testeo
+	 * Todos los metodos con @Ignore funcionan, fueron omitidos para evitar que los valores duplicados se inserten, borren o actualizen una y otra vez durante la fase de testeo
 	 */
 	
 	@Ignore
@@ -43,7 +44,7 @@ public class TestSistema {
 		}
 	}
 	
-	@Ignore
+	@Test
 	public void testeoDeConexionHibernate() {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -74,9 +75,9 @@ public class TestSistema {
 						
 		Session mySession = myFactory.openSession();
 		
-		Inmueble nuevoInmueble = Insertar.insertarInmueble(mySession, 65000000.00, "Pte. Peron 12562", "Moron", 4, "Casa con frente amplo", 3);
+		Inmueble nuevoInmueble = Insertar.insertarInmueble(mySession, 65000000.00, "Rivadavia 43711", "Villa Luro", 3, "Departamento en zona centrica", 1);
 		
-		Assert.assertEquals("Pte. Peron 12562", nuevoInmueble.getDireccion());
+		Assert.assertEquals("Rivadavia 43711", nuevoInmueble.getDireccion());
 		
 		mySession.close();
 		
@@ -130,7 +131,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void recuperarTodosLosInmuebles() {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -555,11 +556,16 @@ public class TestSistema {
 																		
 		Session mySession = myFactory.openSession();
 		
-		List<Inmueble> listaOrdenadaPorPartido = Select.listaInmieblesOrdPorPartido(mySession);
+		List<Inmueble> listaInmuebles = Select.listaInmieblesOrdPorPartido(mySession);
 		
-		for(Inmueble i: listaOrdenadaPorPartido) {
-			System.out.println("Propiedad ubicada en: " + i.getPartido());
+		Collections.sort(listaInmuebles);
+		
+		for(Inmueble i: listaInmuebles) {
+			System.out.println(" ");
+			System.out.println("Inmueble encontrado: ");
+			System.out.println(i.getPartido());
 		}
+		
 	}
 
 }

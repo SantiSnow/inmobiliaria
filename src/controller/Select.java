@@ -41,14 +41,14 @@ public class Select {
 	
 	public static List<Inmueble> listaInmieblesOrdPorDireccion(Session mySession){
 		mySession.beginTransaction();
-		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble in order by in.Direccion", Inmueble.class).getResultList();
+		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble as in", Inmueble.class).getResultList();
 		mySession.getTransaction().commit();
 		return listaInmuebles;
 	}
 	
 	public static List<Inmueble> listaInmieblesOrdPorPartido(Session mySession){
 		mySession.beginTransaction();
-		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble in order by in.Partido", Inmueble.class).getResultList();
+		List<Inmueble> listaInmuebles = mySession.createQuery("from Inmueble as in", Inmueble.class).getResultList();
 		mySession.getTransaction().commit();
 		return listaInmuebles;
 	}

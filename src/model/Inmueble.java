@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="inmueble")
-public class Inmueble {
+public class Inmueble implements Comparable<Inmueble>{
 	
 	//campos de clase
 	@Id
@@ -98,5 +98,12 @@ public class Inmueble {
 	@Override
 	public String toString() {
 		return "\nInmueble: Id=" + Id + ", Precio=" + Precio + ", Direccion=" + Direccion + ", Partido=" + Partido + ", Ambientes=" + Ambientes + ", Comentarios=" + Comentarios + ", propietario=" + propietario + ".";
+	}
+	@Override
+	public int compareTo(Inmueble o) {
+		if(getPartido() == null || o.getPartido() == null) {
+			return 0;
+		}
+		return getPartido().compareTo(o.getPartido());
 	}
 }
