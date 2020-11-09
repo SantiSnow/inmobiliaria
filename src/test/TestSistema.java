@@ -20,30 +20,6 @@ public class TestSistema {
 	 * Todos los metodos con @Ignore funcionan, fueron omitidos para evitar que los valores duplicados se inserten, borren o actualizen una y otra vez durante la fase de testeo
 	 */
 	
-	@Ignore
-	public void testeoDeLaConexionNativa() {
-		//datos conexion mysql
-		String host = "jdbc:mysql://localhost:3306/hibernate?serverTimezone=UTC&useSSL=false";
-		String usr = "root";
-		String pass = "";
-					
-		try {
-						
-			System.out.println("Intentando conectar");
-					
-			Connection miConexion = DriverManager.getConnection(host, usr, pass);
-					
-			Assert.assertTrue(miConexion != null);
-					
-			System.out.println("Conexion exitosa");
-			
-			miConexion.close();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	@Test
 	public void testeoDeConexionHibernate() {
 		//creamos un session factory
@@ -568,4 +544,12 @@ public class TestSistema {
 		
 	}
 
+	
+	
+	
+	@Test
+	public void agregarReparacion() {
+		
+	}
+	
 }

@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,6 +42,9 @@ public class Inmueble implements Comparable<Inmueble>{
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE} )
 	@JoinColumn(name = "Propietario_Id")
 	private Propietario propietario;
+	
+	@OneToMany(mappedBy = "Reparacion", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE} )
+	private List<Reparacion> listaReparaciones;
 	
 	//constructores
 	public Inmueble(){
@@ -95,6 +102,12 @@ public class Inmueble implements Comparable<Inmueble>{
 	public void setPropietario(Propietario propietario) {
 		this.propietario = propietario;
 	}
+	public List<Reparacion> getListaReparaciones() {
+		return listaReparaciones;
+	}
+	public void setListaReparaciones(List<Reparacion> listaReparaciones) {
+		this.listaReparaciones = listaReparaciones;
+	}
 	@Override
 	public String toString() {
 		return "\nInmueble: Id=" + Id + ", Precio=" + Precio + ", Direccion=" + Direccion + ", Partido=" + Partido + ", Ambientes=" + Ambientes + ", Comentarios=" + Comentarios + ", propietario=" + propietario + ".";
@@ -105,5 +118,19 @@ public class Inmueble implements Comparable<Inmueble>{
 			return 0;
 		}
 		return getPartido().compareTo(o.getPartido());
+	}
+	
+	//metodos
+	public Boolean agregarReparacion(Reparacion reparacion) {
+		if(listaReparaciones == null) {
+			listaReparaciones = new ArrayList<Reparacion>();
+			listaReparaciones.add(reparacion);
+			reparacion.setInmueble(this);	
+		}
+		else {
+			listaReparaciones.add(reparacion);
+			reparacion.setInmueble(this);
+		}
+		return true;
 	}
 }

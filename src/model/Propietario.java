@@ -98,7 +98,7 @@ public class Propietario {
 	}
 	@Override
 	public String toString() {
-		return "\nPropietario: Id=" + Id + ", Nombre=" + Nombre + ", Telefono=" + Telefono + ", Correo=" + Correo	+ ", Direccion=" + Direccion + ", Comentarios=" + Comentarios + ", listaInmuebles=" + listaInmuebles + ".";
+		return "\nPropietario: Id=" + Id + ", Nombre=" + Nombre + ", Telefono=" + Telefono + ", Correo=" + Correo	+ ", Direccion=" + Direccion + ", Comentarios=" + Comentarios + ".";
 	}
 	
 	//metodos

@@ -47,4 +47,15 @@ public class Insertar {
 		
 		return miCliente;
 	}
+	
+	public static Reparacion insertarReparacion(Session mySession, Integer idInm, String detalles, Double costo) {
+		Inmueble miInmueble = mySession.get(Inmueble.class, idInm);
+		Reparacion nuevaReparacion = new Reparacion(detalles, costo, miInmueble);
+		
+		mySession.beginTransaction();
+		mySession.save(nuevaReparacion);
+		mySession.getTransaction().commit();
+		
+		return nuevaReparacion;
+	}
 }
