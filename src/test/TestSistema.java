@@ -1,7 +1,5 @@
 package test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Collections;
 import java.util.List;
 
@@ -212,6 +210,34 @@ public class TestSistema {
 		mySession.close();
 		
 		myFactory.close();
+	}
+	
+	@Test
+	public void recuperarInmueblesDeUnPropietario() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
+			.buildSessionFactory();
+		
+		Session mySession = myFactory.openSession();
+		
+		Propietario miPropietario = SelectPropietarios.consultarPorId(mySession, 1);
+		
+		List<Inmueble> listaInmuebles = miPropietario.getListaInmuebles();
+		System.out.println(" ");
+		System.out.println("Lista de inmuebles del propietario: " + miPropietario.getNombre() + ": ");
+		
+		for(Inmueble i: listaInmuebles) {
+			System.out.println(" ");
+			System.out.println("Inmueble " + i.getId() + ": ");
+			System.out.println(i.getDireccion());
+			System.out.println(i.getPartido());
+			System.out.println("-----------------------------------------");
+			
+		}
 	}
 	
 	@Ignore
@@ -547,10 +573,7 @@ public class TestSistema {
 		
 	}
 
-	
-	
-	
-	@Test
+	@Ignore
 	public void agregarReparacion() {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
