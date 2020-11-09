@@ -29,4 +29,11 @@ public class SelectPropietarios {
 			return null;
 		}
 	}
+	
+	public static List<Propietario> consultarPorNombre(Session mySession, String nombre) {
+		mySession.beginTransaction();
+		List<Propietario> misPropietarios = mySession.createQuery("from Propietario where Nombre='" + nombre + "'", Propietario.class).getResultList();
+		mySession.getTransaction().commit();
+		return misPropietarios;
+	}
 }

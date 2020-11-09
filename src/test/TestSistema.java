@@ -169,6 +169,7 @@ public class TestSistema {
 			.addAnnotatedClass(Inmueble.class)
 			.addAnnotatedClass(Broker.class)
 			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
 			.buildSessionFactory();
 												
 		Session mySession = myFactory.openSession();
@@ -185,6 +186,31 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
+	@Test
+	public void buscarPropietarioPorNombre() {
+		//creamos un session factory
+		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
+			.buildSessionFactory();
+												
+		Session mySession = myFactory.openSession();
+		
+		List<Propietario> listaResultado = SelectPropietarios.consultarPorNombre(mySession, "Santiago");
+		
+		System.out.println(" ");
+		System.out.println("Se han encontrado estos propietarios con el nombre Santiago");
+		for(Propietario i: listaResultado) {
+			System.out.println(i.getNombre());
+			System.out.println(i.getCorreo());
+			System.out.println(i.getDireccion());
+			System.out.println("------------------------------");
+		}
+	}
+	
 	@Ignore
 	public void recuperarTodosLosPropietarios() {
 		//creamos un session factory
@@ -193,6 +219,7 @@ public class TestSistema {
 			.addAnnotatedClass(Inmueble.class)
 			.addAnnotatedClass(Broker.class)
 			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
 			.buildSessionFactory();
 												
 		Session mySession = myFactory.openSession();
@@ -212,7 +239,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void recuperarInmueblesDeUnPropietario() {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
