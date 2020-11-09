@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import java.util.Calendar;
 
 @Entity
-@Table(name="Reparacion")
+@Table(name="reparacion")
 public class Reparacion {
 
 	//campos de clase
@@ -73,6 +73,12 @@ public class Reparacion {
 	}
 	public void setInmueble(Inmueble inmueble) {
 		this.inmueble = inmueble;
+	}
+	public Double getCosto() {
+		return Costo;
+	}
+	public void setCosto(Double costo) {
+		Costo = costo;
 	}
 	@Override
 	public String toString() {

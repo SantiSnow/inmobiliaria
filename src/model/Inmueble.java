@@ -43,7 +43,7 @@ public class Inmueble implements Comparable<Inmueble>{
 	@JoinColumn(name = "Propietario_Id")
 	private Propietario propietario;
 	
-	@OneToMany(mappedBy = "Reparacion", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE} )
+	@OneToMany(mappedBy = "inmueble", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE} )
 	private List<Reparacion> listaReparaciones;
 	
 	//constructores

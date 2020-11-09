@@ -28,6 +28,7 @@ public class TestSistema {
 			.addAnnotatedClass(Inmueble.class)
 			.addAnnotatedClass(Broker.class)
 			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
 			.buildSessionFactory();
 				
 		Session mySession = myFactory.openSession();
@@ -47,13 +48,14 @@ public class TestSistema {
 			.addAnnotatedClass(Inmueble.class)
 			.addAnnotatedClass(Broker.class)
 			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
 			.buildSessionFactory();
 						
 		Session mySession = myFactory.openSession();
 		
-		Inmueble nuevoInmueble = Insertar.insertarInmueble(mySession, 65000000.00, "Rivadavia 43711", "Villa Luro", 3, "Departamento en zona centrica", 1);
+		Inmueble nuevoInmueble = Insertar.insertarInmueble(mySession, 89300000.00, "Libertador 16741", "Palermo", 5, "Departamento en Palermo viejo", 1);
 		
-		Assert.assertEquals("Rivadavia 43711", nuevoInmueble.getDireccion());
+		Assert.assertEquals("Libertador 16741", nuevoInmueble.getDireccion());
 		
 		mySession.close();
 		
@@ -68,13 +70,14 @@ public class TestSistema {
 			.addAnnotatedClass(Inmueble.class)
 			.addAnnotatedClass(Broker.class)
 			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
 			.buildSessionFactory();
 								
 		Session mySession = myFactory.openSession();
 				
-		Propietario nuevoPropietario = Insertar.insertarPropietario(mySession, "Pedro", 11333344, "Pedro_978@gmail.com", "Pte. Peron 12562", "Cliente buscando mudarse");
+		Propietario nuevoPropietario = Insertar.insertarPropietario(mySession, "Franco Matias", 11333344, "F_Mati@gmail.com", "Rodriguez Peña 4956", "Cliente buscando vender y mudarse");
 		
-		Assert.assertEquals("Pedro", nuevoPropietario.getNombre());
+		Assert.assertEquals("Franco Matias", nuevoPropietario.getNombre());
 		
 		mySession.close();
 		
@@ -549,7 +552,20 @@ public class TestSistema {
 	
 	@Test
 	public void agregarReparacion() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
+			.buildSessionFactory();
 		
+		Session mySession = myFactory.openSession();
+		
+		Reparacion nuevaReparacion = Insertar.insertarReparacion(mySession, 1, "Reparacion del piso, cambio de alfombra por piso flotante", 5000.00);
+		
+		Assert.assertEquals("Reparacion del piso, cambio de alfombra por piso flotante", nuevaReparacion.getDescripcion());
+		Assert.assertEquals(5000.00, nuevaReparacion.getCosto(), 0);
 	}
 	
 }
