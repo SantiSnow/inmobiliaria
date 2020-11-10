@@ -208,6 +208,7 @@ public class TestSistema {
 			System.out.println(i.getCorreo());
 			System.out.println(i.getDireccion());
 			System.out.println("------------------------------");
+			Assert.assertEquals(i.getNombre(), "Santiago");
 		}
 	}
 	
@@ -612,10 +613,34 @@ public class TestSistema {
 		
 		Session mySession = myFactory.openSession();
 		
-		Reparacion nuevaReparacion = Insertar.insertarReparacion(mySession, 1, "Reparacion del piso, cambio de alfombra por piso flotante", 5000.00);
+		Reparacion nuevaReparacion = Insertar.insertarReparacion(mySession, 1, "Reparacion del baño, cambios en la cañeria y pintura.", 4500.00);
 		
-		Assert.assertEquals("Reparacion del piso, cambio de alfombra por piso flotante", nuevaReparacion.getDescripcion());
-		Assert.assertEquals(5000.00, nuevaReparacion.getCosto(), 0);
+		Assert.assertEquals("Reparacion del baño, cambios en la cañeria y pintura.", nuevaReparacion.getDescripcion());
+		Assert.assertEquals(4500.00, nuevaReparacion.getCosto(), 0);
+	}
+	
+	@Test
+	public void verReparacionesDeUnaPropiedad() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
+			.buildSessionFactory();
+			
+		Session mySession = myFactory.openSession();
+		
+		List<Reparacion> listaReparaciones = SelectGeneral.verReparacionesDeLaPropiedad(mySession, 1);
+		
+		System.out.println(" ");
+		
+		for(Reparacion i: listaReparaciones) {
+			System.out.println("Reparacion de la propiedad: ");
+			System.out.println(i.getDescripcion());
+			System.out.println(i.getFecha());
+			System.out.println("----------------------------");
+		}
 	}
 	
 }

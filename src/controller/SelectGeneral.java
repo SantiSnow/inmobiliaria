@@ -19,5 +19,13 @@ public class SelectGeneral {
 		mySession.getTransaction().commit();
 		return misBrokers;
 	}
+	
+	public static List<Reparacion> verReparacionesDeLaPropiedad(Session mySession, Integer idPropiedad){
+		mySession.beginTransaction();
+		Inmueble miInmueble = mySession.get(Inmueble.class, idPropiedad);
+		List<Reparacion> listaReparaciones = miInmueble.getListaReparaciones();
+		mySession.getTransaction().commit();
+		return listaReparaciones;
+	}
 
 }
