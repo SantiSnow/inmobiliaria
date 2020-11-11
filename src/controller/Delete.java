@@ -20,7 +20,7 @@ public class Delete {
 												+ "\nAmbientes: " + miInmueble.getAmbientes()
 												+ "\nComentarios: " + miInmueble.getComentarios());
 			
-			Integer eleccion = JOptionPane.showConfirmDialog(null, "¿Desea realmente borrar estos registros?", "Borrar cliente", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			Integer eleccion = JOptionPane.showConfirmDialog(null, "¿Desea realmente borrar estos registros?", "Borrar Inmueble", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 			
 			if(eleccion == 0) {
 				mySession.delete(miInmueble);
@@ -112,7 +112,7 @@ public class Delete {
 												+ "\nTelefono: " + miCliente.getTelefono()
 												+ "\nComentarios: " + miCliente.getComentarios());
 			
-			Integer eleccion = JOptionPane.showConfirmDialog(null, "¿Desea realmente borrar estos registros?", "Borrar propietario", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			Integer eleccion = JOptionPane.showConfirmDialog(null, "¿Desea realmente borrar estos registros?", "Borrar cliente", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 			
 			if(eleccion == 0) {
 				mySession.delete(miCliente);
@@ -131,6 +131,33 @@ public class Delete {
 		return miCliente;
 	}
 	
-	
+	public static Reparacion borrarReparacion(Session mySession, Integer idReparacion) {
+		mySession.beginTransaction();
+		Reparacion miReparacion = mySession.get(Reparacion.class, idReparacion);
+		
+		if(miReparacion != null) {
+			JOptionPane.showMessageDialog(null, "Datos de la reparación: "
+												+ "\nFecha: " + miReparacion.getFecha()
+												+ "\nDescripcion: " + miReparacion.getDescripcion()
+												+ "\nValor: " + miReparacion.getCosto());
+			
+			Integer eleccion = JOptionPane.showConfirmDialog(null, "¿Desea realmente borrar estos registros?", "Borrar reparacion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			
+			if(eleccion == 0) {
+				mySession.delete(miReparacion);
+				mySession.getTransaction().commit();
+				JOptionPane.showMessageDialog(null, "Los datos fueron eliminados.");
+			}
+			else {
+				mySession.getTransaction().commit();
+				JOptionPane.showMessageDialog(null, "Los datos no fueron eliminados.");
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "No se encontró una reparación con ese ID.");
+			mySession.getTransaction().commit();
+		}
+		return miReparacion;
+	}
 
 }

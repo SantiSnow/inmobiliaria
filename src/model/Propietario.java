@@ -38,7 +38,7 @@ public class Propietario {
 	@Column(name="Comentarios")
 	private String Comentarios;
 	
-	@OneToMany(mappedBy = "propietario", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE} )
+	@OneToMany(mappedBy = "propietario", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	private List<Inmueble> listaInmuebles;
 	
 	//constructores

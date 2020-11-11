@@ -30,7 +30,7 @@ public class Reparacion {
 	@Column(name="Fecha")
 	private String Fecha;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE} )
+	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH} )
 	@JoinColumn(name = "Inmueble_Id")
 	private Inmueble inmueble;
 	

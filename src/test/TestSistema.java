@@ -18,7 +18,7 @@ public class TestSistema {
 	 * Todos los metodos con @Ignore funcionan, fueron omitidos para evitar que los valores duplicados se inserten, borren o actualizen una y otra vez durante la fase de testeo
 	 */
 	
-	@Test
+	@Ignore
 	public void testeoDeConexionHibernate() {
 		//creamos un session factory
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -51,7 +51,7 @@ public class TestSistema {
 						
 		Session mySession = myFactory.openSession();
 		
-		Inmueble nuevoInmueble = Insertar.insertarInmueble(mySession, 89300000.00, "Libertador 16741", "Palermo", 5, "Departamento en Palermo viejo", 1);
+		Inmueble nuevoInmueble = Insertar.insertarInmueble(mySession, 89300000.00, "Libertador 16741", "Palermo", 5, "Departamento en Palermo viejo", 3);
 		
 		Assert.assertEquals("Libertador 16741", nuevoInmueble.getDireccion());
 		
@@ -73,9 +73,9 @@ public class TestSistema {
 								
 		Session mySession = myFactory.openSession();
 				
-		Propietario nuevoPropietario = Insertar.insertarPropietario(mySession, "Franco Matias", 11333344, "F_Mati@gmail.com", "Rodriguez Peña 4956", "Cliente buscando vender y mudarse");
+		Propietario nuevoPropietario = Insertar.insertarPropietario(mySession, "Pedro", 11333344, "P_perez91@gmail.com", "Bransend 4956", "Cliente buscando vender y mudarse");
 		
-		Assert.assertEquals("Franco Matias", nuevoPropietario.getNombre());
+		Assert.assertEquals("Pedro", nuevoPropietario.getNombre());
 		
 		mySession.close();
 		
@@ -186,7 +186,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 	
-	@Test
+	@Ignore
 	public void buscarPropietarioPorNombre() {
 		//creamos un session factory
 		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -401,21 +401,22 @@ public class TestSistema {
 		myFactory.close();
 	}
 
-	@Ignore
+	@Test
 	public void borradoInmuebles() {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Broker.class)
 			.addAnnotatedClass(Cliente.class)
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Reparacion.class)
 			.buildSessionFactory();
 															
 		Session mySession = myFactory.openSession();
 		
-		Inmueble miInmueble = Delete.borrarInmueble(mySession, 3);
+		Inmueble miInmueble = Delete.borrarInmueble(mySession, 5);
 		
-		Assert.assertEquals("Pte. Peron 12562", miInmueble.getDireccion());
-		Assert.assertEquals("Casa con frente amplo", miInmueble.getComentarios());
+		Assert.assertEquals("Libertador 16741", miInmueble.getDireccion());
+		//Assert.assertEquals("Casa con frente amplo", miInmueble.getComentarios());
 	}
 	
 	@Ignore
@@ -441,14 +442,15 @@ public class TestSistema {
 			.addAnnotatedClass(Cliente.class)
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Reparacion.class)
 			.buildSessionFactory();
 															
 		Session mySession = myFactory.openSession();
 		
-		Propietario miPropietario = Delete.borrarPropietario(mySession, 2);
+		Propietario miPropietario = Delete.borrarPropietario(mySession, 4);
 		
-		Assert.assertEquals("Micaela", miPropietario.getNombre());
-		Assert.assertEquals("Mica19@gmail.com", miPropietario.getCorreo());
+		Assert.assertEquals("Franco Matias", miPropietario.getNombre());
+		Assert.assertEquals("F_Mati@gmail.com", miPropietario.getCorreo());
 		
 		System.out.println(" ");
 		System.out.println("Propiedades de la persona borrada: ");
@@ -613,13 +615,13 @@ public class TestSistema {
 		
 		Session mySession = myFactory.openSession();
 		
-		Reparacion nuevaReparacion = Insertar.insertarReparacion(mySession, 1, "Reparacion del baño, cambios en la cañeria y pintura.", 4500.00);
+		Reparacion nuevaReparacion = Insertar.insertarReparacion(mySession, 1, "Reparacion del piso.", 5000.00);
 		
-		Assert.assertEquals("Reparacion del baño, cambios en la cañeria y pintura.", nuevaReparacion.getDescripcion());
-		Assert.assertEquals(4500.00, nuevaReparacion.getCosto(), 0);
+		Assert.assertEquals("Reparacion del piso.", nuevaReparacion.getDescripcion());
+		Assert.assertEquals(5000.00, nuevaReparacion.getCosto(), 0);
 	}
 	
-	@Test
+	@Ignore
 	public void verReparacionesDeUnaPropiedad() {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
@@ -641,6 +643,26 @@ public class TestSistema {
 			System.out.println(i.getFecha());
 			System.out.println("----------------------------");
 		}
+	}
+	
+	@Ignore
+	public void borradoDeUnaReparacion() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
+			.buildSessionFactory();
+				
+		Session mySession = myFactory.openSession();
+		
+		Reparacion reparacionBorrada = Delete.borrarReparacion(mySession, 6);
+		
+		Assert.assertEquals("Reparacion del piso.", reparacionBorrada.getDescripcion());
+		Assert.assertEquals(5000.00, reparacionBorrada.getCosto(), 0);
+		
+		//Assert.assertTrue(reparacionBorrada == null);
 	}
 	
 }
