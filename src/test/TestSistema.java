@@ -401,7 +401,7 @@ public class TestSistema {
 		myFactory.close();
 	}
 
-	@Test
+	@Ignore
 	public void borradoInmuebles() {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Broker.class)
@@ -615,9 +615,9 @@ public class TestSistema {
 		
 		Session mySession = myFactory.openSession();
 		
-		Reparacion nuevaReparacion = Insertar.insertarReparacion(mySession, 1, "Reparacion del piso.", 5000.00);
+		Reparacion nuevaReparacion = Insertar.insertarReparacion(mySession, 6, "Reparacion del piso flotante.", 5000.00);
 		
-		Assert.assertEquals("Reparacion del piso.", nuevaReparacion.getDescripcion());
+		Assert.assertEquals("Reparacion del piso flotante.", nuevaReparacion.getDescripcion());
 		Assert.assertEquals(5000.00, nuevaReparacion.getCosto(), 0);
 	}
 	
@@ -665,4 +665,37 @@ public class TestSistema {
 		//Assert.assertTrue(reparacionBorrada == null);
 	}
 	
+	@Test
+	public void testActualizarReparacion() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
+			.buildSessionFactory();
+					
+		Session mySession = myFactory.openSession();
+		
+		Reparacion miReparacion = UpdateReparaciones.actualizarReparacion(mySession, 6);
+		
+		Assert.assertEquals(5500.0, miReparacion.getCosto(), 0);
+	}
+	
+	@Ignore
+	public void testNoActualizarReparacionNoEncuentraInmueble() {
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
+			.buildSessionFactory();
+					
+		Session mySession = myFactory.openSession();
+		
+		Reparacion miReparacion = UpdateReparaciones.actualizarReparacion(mySession, 45);
+		
+		Assert.assertTrue(miReparacion == null);
+	}
 }
