@@ -1,9 +1,6 @@
 package test;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -11,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.*;
 
-import controller.Insertar;
 import model.*;
 import controller.*;
 
