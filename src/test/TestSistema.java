@@ -1,6 +1,9 @@
 package test;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -215,7 +218,7 @@ public class TestSistema {
 	@Ignore
 	public void recuperarTodosLosPropietarios() {
 		//creamos un session factory
-		 SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
 			.addAnnotatedClass(Inmueble.class)
 			.addAnnotatedClass(Broker.class)
@@ -665,7 +668,7 @@ public class TestSistema {
 		//Assert.assertTrue(reparacionBorrada == null);
 	}
 	
-	@Test
+	@Ignore
 	public void testActualizarReparacion() {
 		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
 			.addAnnotatedClass(Propietario.class)
@@ -698,4 +701,81 @@ public class TestSistema {
 		
 		Assert.assertTrue(miReparacion == null);
 	}
+
+
+
+	//mas test con collections
+	//arraylist
+	@Ignore
+	public void testDeCollections() {
+		//creamos un session factory
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
+			.buildSessionFactory();
+														
+		Session mySession = myFactory.openSession();
+				
+		ArrayList<Propietario> listaPropietarios = (ArrayList<Propietario>) SelectPropietarios.selectPropietarios(mySession);
+		
+		System.out.println("Cantidad de propietarios en el sistema:");
+		System.out.println(listaPropietarios.size());
+		
+		System.out.println(" ");
+		System.out.println("Lista de propietarios: ");
+		
+		for(Propietario i: listaPropietarios) {
+			System.out.println("Propietario encontrado");
+			System.out.println(i.getNombre());
+			System.out.println(i.getDireccion());
+			System.out.println(i.getCorreo());
+			System.out.println("-----------------------------------");
+			System.out.println(" ");
+		}
+				
+		mySession.close();
+				
+		myFactory.close();
+	}
+	
+	//linkedlist
+	@Ignore
+	public void testDeCollectionsLinked() {
+		//creamos un session factory
+		SessionFactory myFactory = new Configuration().configure("hibernate.cfg.xml")
+			.addAnnotatedClass(Propietario.class)
+			.addAnnotatedClass(Inmueble.class)
+			.addAnnotatedClass(Broker.class)
+			.addAnnotatedClass(Cliente.class)
+			.addAnnotatedClass(Reparacion.class)
+			.buildSessionFactory();
+														
+		Session mySession = myFactory.openSession();
+				
+		LinkedList<Propietario> listaPropietarios = (LinkedList<Propietario>) SelectPropietarios.selectPropietarios(mySession);
+		
+		System.out.println("Cantidad de propietarios en el sistema:");
+		System.out.println(listaPropietarios.size());
+		
+		System.out.println(" ");
+		System.out.println("Lista de propietarios: ");
+		
+		for(Propietario i: listaPropietarios) {
+			System.out.println("Propietario encontrado");
+			System.out.println(i.getNombre());
+			System.out.println(i.getDireccion());
+			System.out.println(i.getCorreo());
+			System.out.println("-----------------------------------");
+			System.out.println(" ");
+		}
+				
+		mySession.close();
+				
+		myFactory.close();
+	}
+
+
 }
